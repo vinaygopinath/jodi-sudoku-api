@@ -10,26 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_211553) do
+ActiveRecord::Schema.define(version: 2021_04_11_135910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "room_users", id: false, force: :cascade do |t|
-    t.uuid "room_id", null: false
-    t.uuid "user_id", null: false
-    t.datetime "joined_at"
+    t.uuid "user_id"
+    t.uuid "room_id"
     t.index ["room_id"], name: "index_room_users_on_room_id"
     t.index ["user_id"], name: "index_room_users_on_user_id"
   end
 
   create_table "rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.integer "state", null: false
     t.integer "game_type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "link_name", null: false
+    t.string "description"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
